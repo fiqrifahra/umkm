@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/leaflet-search.css">
+    <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+    <link rel="stylesheet" href="css/leaflet-measure.css">
+
+    <!-- Bootstrap 5 CSS (via CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link href="assets/img/lokalin.png" rel="icon" />
+    <link href="assets/img/lokalin.png" rel="apple-touch-icon" />
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding-top: 5px;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Styling untuk header */
+        #header {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #header .logo {
+            font-size: 32px;
+            color: #5fcf80;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #5fcf80;
+            font-size: 18px;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 600;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .get-started-btn {
+            background-color: #5fcf80;
+            color: white;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .get-started-btn:hover {
+            background-color: #4bbf6b;
+        }
+
+        #container {
+            display: flex;
+            height: calc(100% - 60px);
+            margin-top: 60px;
+        }
+
+        #map {
+            flex: 1;
+        }
+
+        #sidebar {
+            width: 300px;
+            background: rgba(95, 207, 128, 0.1);
+            overflow-y: auto;
+            padding: 10px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #categoryFilter {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 2px solid #5fcf80;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        #categoryFilter:focus {
+            outline: none;
+            border-color: #4bbf6b;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        th,
+        td {
+
+            border-color: #4bbf6b;
+            padding: 8px;
+        }
+
+        th,
+        td {
+            background-color: #5fcf80;
+            border-color: #4bbf6b;
+            color: #000000;
+
+        }
+
+        .legend-icon {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+    </style>
+
+    <title>LOKALIN</title>
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+            <!-- Logo -->
+            <h1 class="logo me-auto">LOKALIN</h1>
+
+            <!-- Navbar -->
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <!-- .navbar -->
+
+            <!-- Button Go to Map -->
+            <a href="../index.html" class="get-started-btn">Beranda</a>
+            <a href="https://lokalin-jevyz5iygzranamnogs4ua.streamlit.app/" class="get-started-btn">Analisis UMKM >></a>
+        </div>
+    </header>
+    <div id="container">
+
+        <div id="map"></div>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <!-- Dropdown filter kategori -->
+            <h4>Filter Kategori</h4>
+            <select id="categoryFilter" class="form-select mb-3">
+                <option value="All">Tampilkan Semua Kategori</option>
+            </select>
+
+            <!-- Tabel info -->
+            <h4>Detail UMKM</h4>
+            <table id="infoTable" class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Nama UMKM</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Kecamatan</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Usaha</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>kategori Usaha</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Tenaga Tetap</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Tenaga Lepas</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Kategori Daya Serap</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Izin</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Kategori Izin</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Omzet</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Kategori Omzet</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Kategori Kemampuan Bayar</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Legenda Peta -->
+            <h4>Legenda Peta</h4>
+            <ul style="list-style: none; padding-left: 0;">
+                <li><span class="legend-icon"
+                        style="background-image: url('images/houseware.png'); background-size: cover; width: 20px; height: 20px; display: inline-block; margin-right: 10px;"></span>
+                    Craft, Houseware n Furniture</li>
+                <li><span class="legend-icon"
+                        style="background-image: url('images/industri.png'); background-size: cover; width: 20px; height: 20px; display: inline-block; margin-right: 10px;"></span>
+                    Industri</li>
+                <li><span class="legend-icon"
+                        style="background-image: url('images/jasa.png'); background-size: cover; width: 20px; height: 20px; display: inline-block; margin-right: 10px;"></span>
+                    Jasa</li>
+                <li><span class="legend-icon"
+                        style="background-image: url('images/makanan.png'); background-size: cover; width: 20px; height: 20px; display: inline-block; margin-right: 10px;"></span>
+                    Makanan Minuman</li>
+                <li><span class="legend-icon"
+                        style="background-image: url('images/toko.png'); background-size: cover; width: 20px; height: 20px; display: inline-block; margin-right: 10px;"></span>
+                    Toko Produk Khusus</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <!-- JS Library -->
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/L.Control.Layers.Tree.min.js"></script>
+    <script src="js/L.Control.Locate.min.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+    <script src="js/leaflet-measure.js"></script>
+    <script src="js/leaflet-search.js"></script>
+    <script src="data/KATEGORI_JENISUSAHA_0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Google Maps TileLayer -->
+    <script src="https://unpkg.com/leaflet.tilelayer.google/v1.0.0/leaflet-google.js"></script>
+
+    <script>
+        // Buat dictionary untuk rename field
+        var fieldNames = {
+            "ID": "ID",
+            "UMKM": "Nama UMKM",
+            "KEC.": "Kecamatan",
+            "USAHA": "Jenis Usaha",
+            "KATEGORI U": "Kategori Usaha",
+            "TK_TETAP": "Tenaga Tetap",
+            "TK_LEPAS": "Tenaga Lepas",
+            "IJIN": "Izin Usaha",
+            "KATEGORI D": "Kategori Daya Serap",
+            "KATEGORI O": "Kategori Omzet",
+            "PEMASARAN": "Jumlah Pemasaran",
+            "PEMASARA_1": "Jumlah Pemasaran 1",
+            "JUMLAH PEM": "Jumlah Pekerja",
+            "OMZET": "Omzet",
+            "KATEGORI K": "Kategori Kemampuan Bayar",
+            "KATEGORI I": "Kategori Izin",
+            "LONG": "Longitude",
+            "LAT": "Latitude"
+        };
+
+        var map = L.map('map', {
+            zoomControl: true, maxZoom: 28, minZoom: 1
+        }).fitBounds([[-7.6662, 109.1923], [-7.5762, 109.2953]]);
+
+        // Menambahkan layer peta dasar
+        var googleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            attribution: ''
+        });
+
+        var osmMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+
+        // Google Satellite Hybrid sebagai default
+        googleSatellite.addTo(map);
+
+        // Control untuk memilih antara basemaps
+        var baseMaps = {
+            "OpenStreetMap": osmMap,
+            "Google Satellite": googleSatellite,
+
+        };
+
+        L.control.layers(baseMaps).addTo(map);
+
+        var autolinker = new Autolinker({ truncate: { length: 30, location: 'smart' } });
+
+        L.control.zoom({ position: 'topleft' }).addTo(map);
+        L.control.locate({ locateOptions: { maxZoom: 19 } }).addTo(map);
+        new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        }).addTo(map);
+
+
+
+        // Fungsi untuk menampilkan data ke panel
+        function showInfoPanel(props) {
+            const table = document.getElementById("infoTable").getElementsByTagName('tbody')[0];
+            table.innerHTML = "";
+            for (const key in props) {
+                if (props[key] !== null && key !== "LAT" && key !== "LONG") {
+                    const renamedKey = fieldNames[key] || key; // Rename field using dictionary
+                    const row = `<tr><td><strong>${renamedKey}</strong></td><td>${props[key]}</td></tr>`;
+                    table.innerHTML += row;
+                }
+            }
+        }
+
+        // Menonaktifkan popup dan menambahkan event ke marker
+        function pop_KATEGORI_JENISUSAHA_0(feature, layer) {
+            layer.on('click', function () {
+                showInfoPanel(feature.properties);
+            });
+        }
+
+        // Style marker menggunakan gambar custom
+        function style_KATEGORI_JENISUSAHA_0_0(feature) {
+            // Pemetaan kategori ke gambar
+            const imageUrlMap = {
+                'Craft, Houseware n Furniture': 'images/houseware.png',
+                'Industri': 'images/industri.png',
+                'Jasa': 'images/jasa.png',
+                'Makanan Minuman': 'images/makanan.png',
+                'Toko Produk Khusus': 'images/toko.png'
+            };
+
+            // Tentukan gambar yang akan digunakan berdasarkan kategori
+            const iconUrl = imageUrlMap[feature.properties['KATEGORI U']] || 'images/factory.png';  // Gambar default jika kategori tidak ditemukan
+
+            // Membuat custom icon dengan ukuran yang disesuaikan
+            const customIcon = L.icon({
+                iconUrl: iconUrl,  // Path gambar
+                iconSize: [20, 20],  // Ukuran gambar marker (Lebar x Tinggi)
+                iconAnchor: [20, 40],  // Titik anchor di bawah gambar
+                popupAnchor: [0, -40]  // Posisi popup marker
+            });
+
+            return {
+                pane: 'pane_KATEGORI_JENISUSAHA_0',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',  // Warna border jika diperlukan
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                interactive: true,
+                icon: customIcon  // Set custom icon
+            };
+        }
+
+        // Menambahkan marker dengan gambar custom ke peta
+        map.createPane('pane_KATEGORI_JENISUSAHA_0');
+        map.getPane('pane_KATEGORI_JENISUSAHA_0').style.zIndex = 400;
+
+        var layer_KATEGORI_JENISUSAHA_0 = new L.geoJson(null, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_KATEGORI_JENISUSAHA_0',
+            layerName: 'layer_KATEGORI_JENISUSAHA_0',
+            pane: 'pane_KATEGORI_JENISUSAHA_0',
+            onEachFeature: pop_KATEGORI_JENISUSAHA_0,
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, style_KATEGORI_JENISUSAHA_0_0(feature));  // Menggunakan L.marker dengan custom icon
+            },
+        });
+
+        var bounds_group = new L.featureGroup([]);
+        bounds_group.addLayer(layer_KATEGORI_JENISUSAHA_0);
+        map.addLayer(layer_KATEGORI_JENISUSAHA_0);
+
+
+        // Dropdown filter kategori
+        const categories = new Set();
+        json_KATEGORI_JENISUSAHA_0.features.forEach(f => categories.add(f.properties["KATEGORI U"]));
+        categories.forEach(cat => {
+            const opt = document.createElement("option");
+            opt.value = cat;
+            opt.textContent = cat;
+            document.getElementById("categoryFilter").appendChild(opt);
+        });
+
+        document.getElementById("categoryFilter").addEventListener("change", function () {
+            const selected = this.value;
+            layer_KATEGORI_JENISUSAHA_0.clearLayers();
+            const filtered = selected === "All"
+                ? json_KATEGORI_JENISUSAHA_0.features
+                : json_KATEGORI_JENISUSAHA_0.features.filter(f => f.properties["KATEGORI U"] === selected);
+            layer_KATEGORI_JENISUSAHA_0.addData(filtered);
+        });
+
+        // Inisialisasi layer pertama kali
+        layer_KATEGORI_JENISUSAHA_0.addData(json_KATEGORI_JENISUSAHA_0.features);
+    </script>
+</body>
+
+</html>
